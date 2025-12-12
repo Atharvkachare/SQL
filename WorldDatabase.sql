@@ -88,3 +88,65 @@ CREATE TABLE IF NOT EXISTS employees(
 )
 ENGINE=InnoDB;
 
+-- 17. Write a MySQL query to create a table employees including columns employee_id, first_name, last_name, job_id, salary and make sure that, the employee_id column does not contain any duplicate value at the time of insertion, and the foreign key column job_id, referenced by the column job_id of jobs table, can contain only those values which are exists in the jobs table. The InnoDB Engine have been used to create the tables. The specialty of the statement is that, The ON UPDATE CASCADE action allows you to perform cross-table update and ON DELETE RESTRICT action reject the deletion. The default action is ON DELETE RESTRICT.  --
+CREATE TABLE IF NOT EXISTS employees3(
+                    EMPLOYEE_ID decimal(6,0) NOT NULL PRIMARY KEY,
+                    FIRST_NAME varchar(20) DEFAULT NULL,
+					LAST_NAME varchar(25) NOT NULL,
+                    EMAIL varchar(25) NOT NULL,
+                    PHONE_NUMBER varchar(20) DEFAULT NULL,
+					HIRE_DATE date NOT NULL,
+                    JOB_ID varchar(10) NOT NULL,
+                    SALARY decimal(8,2) DEFAULT NULL,
+					COMMISSION_PCT decimal(2,2) DEFAULT NULL,
+					MANAGER_ID decimal(6,0) DEFAULT NULL,
+					DEPARTMENT_ID decimal(4,0) DEFAULT NULL,
+                    FOREIGN KEY(DEPARTMENT_ID) REFERENCES departments(DEPARTMENT_ID),
+                    FOREIGN KEY(JOB_ID) REFERENCES jobs(JOB_ID)
+);     
+
+-- 18 Write a MySQL query to create a table employees including columns employee_id, first_name, last_name, job_id, salary and make sure that, the employee_id column does not contain any duplicate value at the time of insertion, and the foreign key column job_id, referenced by the column job_id of jobs table, can contain only those values which are exists in the jobs table. The InnoDB Engine have been used to create the tables. The specialty of the statement is that, The ON DELETE CASCADE that lets you allow to delete records in the employees(child) table that refer to a record in the jobs(parent) table when the record in the parent table is deleted and the ON UPDATE RESTRICT actions reject any updates. --
+-- Creating a table named 'employees' if it doesn't already exist to store employee information
+CREATE TABLE IF NOT EXISTS employees(
+    EMPLOYEE_ID decimal(6,0) NOT NULL PRIMARY KEY,
+    FIRST_NAME varchar(20) DEFAULT NULL,
+    LAST_NAME varchar(25) NOT NULL,
+    JOB_ID INTEGER NOT NULL,
+    SALARY decimal(8,2) DEFAULT NULL,
+    FOREIGN KEY(JOB_ID) REFERENCES jobs(JOB_ID) 
+    ON DELETE CASCADE ON UPDATE RESTRICT
+);
+
+-- 19. Write a MySQL query to create a table employees including columns employee_id, first_name, last_name, job_id, salary and make sure that, the employee_id column does not contain any duplicate value at the time of insertion, and the foreign key column job_id, referenced by the column job_id of jobs table, can contain only those values which are exists in the jobs table. The InnoDB Engine have been used to create the tables. The specialty of the statement is that, The ON DELETE SET NULL action will set the foreign key column values in the child table(employees) to NULL when the record in the parent table(jobs) is deleted, with a condition that the foreign key column in the child table must accept NULL values and the ON UPDATE SET NULL action resets the values in the rows in the child table(employees) to NULL values when the rows in the parent table(jobs) are updated. --
+-- Creating a table named 'employees' if it doesn't already exist to store employee information
+
+CREATE TABLE IF NOT EXISTS employees(
+    EMPLOYEE_ID decimal(6,0) NOT NULL PRIMARY KEY,
+    FIRST_NAME varchar(20) DEFAULT NULL,
+    LAST_NAME varchar(25) NOT NULL,
+    JOB_ID INTEGER,
+    SALARY decimal(8,2) DEFAULT NULL,
+    FOREIGN KEY(JOB_ID) REFERENCES jobs(JOB_ID)
+    ON DELETE SET NULL 
+    ON UPDATE SET NULL
+);
+
+-- 20. Write a MySQL query to create a table employees including columns employee_id, first_name, last_name, job_id, salary and make sure that, the employee_id column does not contain any duplicate value at the time of insertion, and the foreign key column job_id, referenced by the column job_id of jobs table, can contain only those values which are exists in the jobs table. The InnoDB Engine have been used to create the tables. The specialty of the statement is that, The ON DELETE NO ACTION and the ON UPDATE NO ACTION actions will reject the deletion and any updates. --
+-- Creating a table named 'employees' if it doesn't already exist to store employee information
+
+CREATE TABLE IF NOT EXISTS employees(
+    EMPLOYEE_ID decimal(6,0) NOT NULL PRIMARY KEY,
+    FIRST_NAME varchar(20) DEFAULT NULL,
+    LAST_NAME varchar(25) NOT NULL,
+    JOB_ID INTEGER NOT NULL,
+    SALARY decimal(8,2) DEFAULT NULL,
+    FOREIGN KEY(JOB_ID) REFERENCES jobs(JOB_ID)
+    ON DELETE NO ACTION 
+    ON UPDATE NO ACTION
+);
+
+
+ 
+
+               
+
