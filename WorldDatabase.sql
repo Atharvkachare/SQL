@@ -145,8 +145,51 @@ CREATE TABLE IF NOT EXISTS employees(
     ON UPDATE NO ACTION
 );
 
+-- 21. Create location table -- 
+CREATE TABLE locations (
+    LOCATION_ID DECIMAL(4, 0) NULL,
+    STREET_ADDRESS VARCHAR(40) NULL,
+    POSTAL_CODE VARCHAR(12) NULL,
+    CITY VARCHAR(30) NULL,
+    STATE_PROVINCE VARCHAR(25) NULL,
+    COUNTRY_ID VARCHAR(2) NULL
+);
 
- 
 
+-- Alter Table queries --
+-- 1. Write a MySQL statement to rename the table countries to country_new. --
+alter table countries rename country_new;
+
+-- 2. Write a MySQL statement to add a column region_id to the table locations. --
+alter table locations add region_id int;
+
+-- 3. Write a MySQL statement to add a columns ID as the first column of the table locations.  --
+alter table locations add ID int first;
+desc locations;
+
+-- 4. Write a MySQL statement to add a column region_id after state_province to the table locations. --
+alter table locations add region_id int after state_province;
+
+-- 5. Write a MySQL statement change the data type of the column country_id to integer in the table locations.  --
+alter table locations modify country_id int;
+
+-- 6. Write a MySQL statement to drop the column city from the table locations.  --
+alter table locations drop city;
+
+-- 7. Write a MySQL statement to change the name of the column state_province to state, keeping the data type and size same. --
+alter table locations drop state_province, add state varchar(25); 
+ALTER TABLE locations CHANGE state_province state varchar(25);
+
+-- 8. Write a MySQL statement to add a primary key for the columns location_id in the locations table. --
+alter table locations add primary key(location_id);
+
+-- 9. Write a MySQL statement to add a primary key for a combination of columns location_id and country_id.  --
+alter table locations add primary key(location_id, country_id);
+
+-- 10. Write a MySQL statement to drop the existing primary from the table locations on a combination of columns location_id and country_id.  --
+alter table locations drop primary key;
+
+-- 11. Write a MySQL statement to add a foreign key on job_id column of job_history table referencing to the primary key job_id of jobs table. --
+alter table job_history add foreign key(job_id) references jobs(job_id);
                
 
